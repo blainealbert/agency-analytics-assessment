@@ -7,22 +7,36 @@ type Photos = {
   description: string;
   uploadedBy: string;
   createdAt: string;
-  dimensions: number[];
-  resolution: number[];
+  updatedAt: string;
+  dimensions: {
+    width: number;
+    height: number;
+  };
+  resolution: {
+    width: number;
+    height: number;
+  };
   sizeInBytes: number;
   // sharedWith:
   favorited: boolean;
 };
 
 interface ThumbnailGalleryProps {
-  title: string;
   photos: Photos[];
+  setSelectedPhoto: Function;
 }
 
-const ThumbnailGallery: FC<ThumbnailGalleryProps> = ({ title, photos }) => {
+const ThumbnailGallery: FC<ThumbnailGalleryProps> = ({
+  photos,
+  setSelectedPhoto,
+}) => {
+  function handlePhotoSelection(photo: object) {
+    console.log("Selecting photo: ", photo);
+    setSelectedPhoto(photo);
+  }
+
   return (
     <div className="thumbnail-gallery">
-      <h1>{title}</h1>
       <div className="photo-list">
         {photos.map((photo) => (
           <div className="photo-list__item" key={photo.id}>
@@ -30,6 +44,7 @@ const ThumbnailGallery: FC<ThumbnailGalleryProps> = ({ title, photos }) => {
               className="photo-list__img"
               src={photo.url}
               alt={photo.description}
+              onClick={() => handlePhotoSelection(photo)}
             />
             <p className="photo-list__file-name">{photo.filename}</p>
             <p className="photo-list__file-size text-gray">

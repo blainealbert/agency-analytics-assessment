@@ -4,6 +4,8 @@
   --secondary: #5e6c83;
   --gray: #cdd5e0;
   --lightgray: #f8fafc;
+  --black: #000;
+  --white: #fff;
 }
 
 /* Global CSS */
@@ -35,8 +37,14 @@ hr {
   background-color: var(--lightgray);
 }
 
+/* padding */
 .p-20 {
   padding: 20px;
+}
+
+/* borders */
+.bb--gray {
+  border-bottom: 2px solid var(--gray);
 }
 
 /* Flex box */
@@ -45,7 +53,9 @@ hr {
   flex-direction: row;
 }
 
-/* Photos Page */
+.flex-col-full {
+  width: 100%;
+}
 
 .flex-col-one-third {
   width: 33.33%;
@@ -57,6 +67,23 @@ hr {
 
 .flex-col-half {
   width: 50%;
+}
+
+/* Buttons */
+.btn {
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
+  border: 2px solid var(--gray);
+  border-radius: 10px;
+  color: var(--black);
+  background-color: var(--white);
+  text-align: center;
+  transition: all 0.25s;
+}
+
+.btn:hover {
+  background-color: var(--gray);
 }
 
 /* Thumbnail Gallery */
@@ -74,7 +101,7 @@ hr {
 
 .photo-list__img {
   width: 200px;
-  height: 200px;
+  height: 150px;
   border-radius: 10px;
   object-fit: cover;
   object-position: center;
@@ -87,3 +114,8 @@ hr {
 }
 
 /* Image Details */
+
+.image-details__photo {
+  width: 100%;
+  border-radius: 10px;
+}
