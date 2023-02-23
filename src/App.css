@@ -1,0 +1,89 @@
+/* Vars */
+:root {
+  --primary: #4d45dc;
+  --secondary: #5e6c83;
+  --gray: #cdd5e0;
+  --lightgray: #f8fafc;
+}
+
+/* Global CSS */
+.text-primary {
+  color: var(--primary);
+}
+
+.text-secondary {
+  color: var(--secondary);
+}
+
+.text-gray {
+  color: var(--gray);
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+hr {
+  border-color: var(--gray);
+}
+
+.bg--lightgray {
+  background-color: var(--lightgray);
+}
+
+.p-20 {
+  padding: 20px;
+}
+
+/* Flex box */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Photos Page */
+
+.flex-col-one-third {
+  width: 33.33%;
+}
+
+.flex-col-two-thirds {
+  width: 66.66%;
+}
+
+.flex-col-half {
+  width: 50%;
+}
+
+/* Thumbnail Gallery */
+.photo-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 10px 20px;
+}
+
+.photo-list__item {
+  width: 200px;
+}
+
+.photo-list__img {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.photo-list__file-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Image Details */
