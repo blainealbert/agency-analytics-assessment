@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 
 type Photo = {
   id: string;
@@ -25,6 +25,34 @@ interface ImageDetailsProps {
 }
 
 const ImageDetails: FC<ImageDetailsProps> = ({ selectedPhoto }) => {
+  const [fileSizeMB, createdAtFormatted, updatedAtFormatted] = useMemo(() => {
+    return [
+      `${
+        selectedPhoto.sizeInBytes > 0
+          ? (selectedPhoto.sizeInBytes / 1048576).toFixed(2) + " MB"
+          : ""
+      }`,
+      `${
+        selectedPhoto.createdAt
+          ? new Date(selectedPhoto.createdAt).toLocaleDateString("en-CA", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })
+          : ""
+      }`,
+      `${
+        selectedPhoto.updatedAt
+          ? new Date(selectedPhoto.updatedAt).toLocaleDateString("en-CA", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })
+          : ""
+      }`,
+    ];
+  }, [selectedPhoto]);
+
   return (
     <div className="image-details-container">
       <div className="image-details__preview">
@@ -34,7 +62,7 @@ const ImageDetails: FC<ImageDetailsProps> = ({ selectedPhoto }) => {
           alt={selectedPhoto.description}
         />
         <h3 className="image-details__filename">{selectedPhoto.filename}</h3>
-        <p className="image-details__filesize">{selectedPhoto.sizeInBytes}</p>
+        <p className="image-details__filesize">{fileSizeMB}</p>
       </div>
       <div className="image-details__information">
         <div className="flex-row bb--gray">
@@ -55,7 +83,7 @@ const ImageDetails: FC<ImageDetailsProps> = ({ selectedPhoto }) => {
             <p className="text-secondary">Created</p>
           </div>
           <div className="flex-col-half">
-            <p className=" text-right">{selectedPhoto.createdAt}</p>
+            <p className=" text-right">{createdAtFormatted}</p>
           </div>
         </div>
         <div className="flex-row bb--gray">
@@ -63,7 +91,7 @@ const ImageDetails: FC<ImageDetailsProps> = ({ selectedPhoto }) => {
             <p className="text-secondary">Last Modified</p>
           </div>
           <div className="flex-col-half">
-            <p className=" text-right">{selectedPhoto.updatedAt}</p>
+            <p className=" text-right">{updatedAtFormatted}</p>
           </div>
         </div>
         <div className="flex-row bb--gray">

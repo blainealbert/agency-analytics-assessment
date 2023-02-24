@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-type Photos = {
+type Photo = {
   id: string;
   url: string;
   filename: string;
@@ -22,13 +22,15 @@ type Photos = {
 };
 
 interface ThumbnailGalleryProps {
-  photos: Photos[];
+  photos: Photo[];
   setSelectedPhoto: Function;
+  selectedPhoto: Photo;
 }
 
 const ThumbnailGallery: FC<ThumbnailGalleryProps> = ({
   photos,
   setSelectedPhoto,
+  selectedPhoto,
 }) => {
   function handlePhotoSelection(photo: object) {
     console.log("Selecting photo: ", photo);
@@ -40,16 +42,26 @@ const ThumbnailGallery: FC<ThumbnailGalleryProps> = ({
       <div className="photo-list">
         {photos.map((photo) => (
           <div className="photo-list__item" key={photo.id}>
-            <img
-              className="photo-list__img"
-              src={photo.url}
-              alt={photo.description}
-              onClick={() => handlePhotoSelection(photo)}
-            />
-            <p className="photo-list__file-name">{photo.filename}</p>
-            <p className="photo-list__file-size text-gray">
+            <div
+              className={`
+              photo-list__img-wrapper ${
+                selectedPhoto.id === photo.id
+                  ? "photo-list__img-wrapper--selected"
+                  : ""
+              }
+              `}
+            >
+              <img
+                className={"photo-list__img"}
+                src={photo.url}
+                alt={photo.description}
+                onClick={() => handlePhotoSelection(photo)}
+              />
+            </div>
+            <span className="photo-list__file-name">{photo.filename}</span>
+            <span className="photo-list__file-size text-gray">
               {(photo.sizeInBytes / 1048576).toFixed(2) + " MB"}
-            </p>
+            </span>
           </div>
         ))}
       </div>

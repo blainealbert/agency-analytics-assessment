@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { useState } from "react";
 
 import ImageDetails from "../components/ImageDetails";
@@ -47,25 +47,32 @@ const Photos: FC = () => {
     favorited: false,
   });
 
-  fetch("https://agencyanalytics-api.vercel.app/images.json")
-    .then((response) => response.json())
-    .then((data) => {
-      setPhotos(data);
-      // props.setNotification("");
-      // console.log(data);
-    })
-    .catch((error) => {
-      console.log(error);
-      // props.setNotification(error.message);
-    });
+  // Load Photo JSON from API
+  useEffect(() => {
+    fetch("https://agencyanalytics-api.vercel.app/images.json")
+      .then((response) => response.json())
+      .then((data) => {
+        setPhotos(data);
+        // props.setNotification("");
+        console.log("Photo JSON loaded:", data);
+      })
+      .catch((error) => {
+        console.error(error);
+        // props.setNotification(error.message);
+      });
+  }, []);
 
   return (
     <div className="photos-container flex-row">
       <div className="flex-col-two-thirds p-20 bg--lightgray">
         <h1>Photos</h1>
-        <ThumbnailGallery photos={photos} setSelectedPhoto={setSelectedPhoto} />
+        <ThumbnailGallery
+          photos={photos}
+          selectedPhoto={selectedPhoto}
+          setSelectedPhoto={setSelectedPhoto}
+        />
       </div>
-      <div className="flex-col-one-third p-20">
+      <div className="flex-col-one-third p-20 bl--gray">
         <ImageDetails selectedPhoto={selectedPhoto} />
       </div>
     </div>
