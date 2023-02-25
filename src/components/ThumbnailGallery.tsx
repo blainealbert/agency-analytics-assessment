@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState, useEffect } from "react";
 
 type Photo = {
   id: string;
@@ -32,15 +32,61 @@ const ThumbnailGallery: FC<ThumbnailGalleryProps> = ({
   setSelectedPhoto,
   selectedPhoto,
 }) => {
+  const [currentTabItem, setCurrentTabItem] = useState("Recently Added");
+  const [sortedFilteredPhotos, setSortedFilteredPhotos] =
+    useState<Photo[]>(photos);
+
+  //Sort the list of photos on mount and when tab item changes
+  useEffect(() => {
+    if (currentTabItem === "Recently Added") {
+      setSortedFilteredPhotos(
+        photos.sort(function (a, b) {
+          const timeStampA = new Date(a.createdAt).getTime();
+          const timeStampB = new Date(b.createdAt).getTime();
+          return timeStampB - timeStampA;
+        })
+      );
+    } else if (currentTabItem === "Favorited") {
+      const favoritedPhotos = photos.filter((val) => val.favorited);
+      console.log("favorited photo array: ", favoritedPhotos);
+      setSortedFilteredPhotos(favoritedPhotos);
+    }
+  }, [currentTabItem, photos]);
+
   function handlePhotoSelection(photo: object) {
     console.log("Selecting photo: ", photo);
     setSelectedPhoto(photo);
   }
 
+  function handleTabClick(tabValue: string) {
+    console.log("Selecting tab item: ", tabValue);
+    if (tabValue !== currentTabItem) {
+      setCurrentTabItem(tabValue);
+    }
+  }
+
   return (
     <div className="thumbnail-gallery">
+      <div className="tab-container bb--gray">
+        <div
+          className={`tab-item ${
+            currentTabItem === "Recently Added" ? "tab-item--active" : ""
+          }`}
+          onClick={() => handleTabClick("Recently Added")}
+        >
+          Recently Added
+        </div>
+        <div
+          className={`tab-item ${
+            currentTabItem === "Favorited" ? "tab-item--active" : ""
+          }`}
+          onClick={() => handleTabClick("Favorited")}
+        >
+          Favourited
+        </div>
+      </div>
       <div className="photo-list">
-        {photos.map((photo) => (
+        {sortedFilteredPhotos.map((photo) => (
           <div className="photo-list__item" key={photo.id}>
             <div
               className={`

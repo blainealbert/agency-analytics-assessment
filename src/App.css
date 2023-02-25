@@ -90,6 +90,36 @@ hr {
   background-color: var(--gray);
 }
 
+/* Tabs */
+.tab-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+
+.tab-item {
+  cursor: pointer;
+  padding: 10px 0;
+  margin-right: 20px;
+  color: var(--secondary);
+  position: relative;
+}
+
+.tab-item--active {
+  color: var(--primary);
+}
+
+.tab-item--active::after {
+  display: block;
+  content: "";
+  width: 100%;
+  height: 2px;
+  bottom: -2px;
+  position: absolute;
+  background-color: var(--primary);
+}
+
 /* Thumbnail Gallery */
 .photo-list {
   display: flex;

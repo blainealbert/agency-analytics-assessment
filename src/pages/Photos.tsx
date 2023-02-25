@@ -1,5 +1,4 @@
-import React, { FC, useEffect } from "react";
-import { useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 import ImageDetails from "../components/ImageDetails";
 import ThumbnailGallery from "../components/ThumbnailGallery";
