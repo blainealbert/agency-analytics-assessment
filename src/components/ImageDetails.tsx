@@ -1,4 +1,6 @@
 import React, { FC, useMemo } from "react";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 type Photo = {
   id: string;
@@ -53,6 +55,19 @@ const ImageDetails: FC<ImageDetailsProps> = ({ selectedPhoto }) => {
     ];
   }, [selectedPhoto]);
 
+  function handleFavoriteToggle(photo: Photo) {
+    console.log(
+      "Toggling favorite status of image from " +
+        photo.favorited +
+        " to " +
+        !photo.favorited
+    );
+  }
+
+  function handleDelete(photo: Photo) {
+    console.log("Deleting photo with filename: ", photo.filename);
+  }
+
   return (
     <div className="image-details-container">
       <div className="image-details__preview">
@@ -61,7 +76,20 @@ const ImageDetails: FC<ImageDetailsProps> = ({ selectedPhoto }) => {
           src={selectedPhoto.url}
           alt={selectedPhoto.description}
         />
-        <h3 className="image-details__filename">{selectedPhoto.filename}</h3>
+        <div className="flex-row flex-space-between flex-align-center">
+          <h3 className="image-details__filename">{selectedPhoto.filename}</h3>
+          {selectedPhoto.favorited ? (
+            <FavoriteIcon
+              className="image-details__favorited image-details__favorited--active"
+              onClick={() => handleFavoriteToggle(selectedPhoto)}
+            />
+          ) : (
+            <FavoriteBorderIcon
+              className="image-details__favorited image-details__favorited--inactive"
+              onClick={() => handleFavoriteToggle(selectedPhoto)}
+            />
+          )}
+        </div>
         <p className="image-details__filesize">{fileSizeMB}</p>
       </div>
       <div className="image-details__information">
@@ -122,7 +150,9 @@ const ImageDetails: FC<ImageDetailsProps> = ({ selectedPhoto }) => {
           <div className="flex-col-full">
             <h3>Description</h3>
             <p className="text-secondary">{selectedPhoto.description}</p>
-            <button className="btn">Delete</button>
+            <button className="btn" onClick={() => handleDelete(selectedPhoto)}>
+              Delete
+            </button>
           </div>
         </div>
       </div>
