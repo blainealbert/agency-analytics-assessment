@@ -36,24 +36,6 @@ const ThumbnailGallery: FC<ThumbnailGalleryProps> = ({
   // const [sortedFilteredPhotos, setSortedFilteredPhotos] =
   useState<Photo[]>(photos);
 
-  //Sort the list of photos on mount and when tab item changes
-  // useEffect(() => {
-  //   console.log("useEffect recalculating sorted/filtered photos");
-  //   if (currentTabItem === "Recently Added") {
-  //     setSortedFilteredPhotos(
-  //       photos.sort(function (a, b) {
-  //         const timeStampA = new Date(a.createdAt).getTime();
-  //         const timeStampB = new Date(b.createdAt).getTime();
-  //         return timeStampB - timeStampA;
-  //       })
-  //     );
-  //   } else if (currentTabItem === "Favorited") {
-  //     const favoritedPhotos = photos.filter((val) => val.favorited);
-  //     console.log("favorited photo array: ", favoritedPhotos);
-  //     setSortedFilteredPhotos(favoritedPhotos);
-  //   }
-  // }, [currentTabItem, photos]);
-
   const sortedFilteredPhotos = useMemo(() => {
     console.log("sortedFilterPhotos");
 

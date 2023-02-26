@@ -161,7 +161,11 @@ const ImageDetails: FC<ImageDetailsProps> = ({
         <div className="flex-row">
           <div className="flex-col-full">
             <h3>Description</h3>
-            <p className="text-secondary">{selectedPhoto.description}</p>
+            {selectedPhoto.description ? (
+              <p className="text-secondary">{selectedPhoto.description}</p>
+            ) : (
+              <p className="text-secondary">No description.</p>
+            )}
             <button className="btn" onClick={() => handleDelete(selectedPhoto)}>
               Delete
             </button>
