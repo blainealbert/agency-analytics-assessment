@@ -8,6 +8,20 @@
   --white: #fff;
 }
 
+/* Animations */
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadein 0.3s linear;
+}
+
 /* Global CSS */
 .text-primary {
   color: var(--primary);
@@ -35,6 +49,22 @@ hr {
 
 .bg--lightgray {
   background-color: var(--lightgray);
+}
+
+/* loading */
+.loading-wrapper {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-icon {
+  color: var(--primary) !important;
 }
 
 /* padding */
@@ -66,19 +96,28 @@ hr {
 }
 
 .flex-col-full {
-  width: 100%;
+  flex-basis: 100%;
 }
 
 .flex-col-one-third {
-  width: 33.33%;
+  flex-basis: 33.33%;
 }
 
 .flex-col-two-thirds {
-  width: 66.66%;
+  flex-basis: 66.66%;
 }
 
 .flex-col-half {
-  width: 50%;
+  flex-basis: 50%;
+}
+
+/* width */
+.w-100 {
+  width: 100%;
+}
+
+.mw-400px {
+  max-width: 400px;
 }
 
 /* Buttons */
@@ -182,8 +221,19 @@ hr {
   border-radius: 10px;
 }
 
+.image-details__filename {
+  margin-bottom: 5px;
+}
+
+.image-details__filesize {
+  margin-top: 5px;
+  margin-top: 0;
+}
+
 .image-details__favorited {
   cursor: pointer;
+  margin-bottom: 0;
+  margin-top: 20px;
 }
 
 .image-details__favorited--inactive {

@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from "react";
+import React, { FC, useEffect, useState, useMemo } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
@@ -24,9 +24,15 @@ type Photo = {
 };
 interface ImageDetailsProps {
   selectedPhoto: Photo;
+  favoriteToggleSelectedPhoto: Function;
+  deleteSelectedPhoto: Function;
 }
 
-const ImageDetails: FC<ImageDetailsProps> = ({ selectedPhoto }) => {
+const ImageDetails: FC<ImageDetailsProps> = ({
+  selectedPhoto,
+  favoriteToggleSelectedPhoto,
+  deleteSelectedPhoto,
+}) => {
   const [fileSizeMB, createdAtFormatted, updatedAtFormatted] = useMemo(() => {
     return [
       `${
@@ -57,15 +63,19 @@ const ImageDetails: FC<ImageDetailsProps> = ({ selectedPhoto }) => {
 
   function handleFavoriteToggle(photo: Photo) {
     console.log(
-      "Toggling favorite status of image from " +
+      "Toggling favorite status of " +
+        photo.filename +
+        " from " +
         photo.favorited +
         " to " +
         !photo.favorited
     );
+    favoriteToggleSelectedPhoto();
   }
 
   function handleDelete(photo: Photo) {
     console.log("Deleting photo with filename: ", photo.filename);
+    deleteSelectedPhoto();
   }
 
   return (
@@ -77,7 +87,7 @@ const ImageDetails: FC<ImageDetailsProps> = ({ selectedPhoto }) => {
           alt={selectedPhoto.description}
         />
         <div className="flex-row flex-space-between flex-align-center">
-          <h3 className="image-details__filename">{selectedPhoto.filename}</h3>
+          <h3 className="image-details__filename">{selectedPhoto.filename}</h3>{" "}
           {selectedPhoto.favorited ? (
             <FavoriteIcon
               className="image-details__favorited image-details__favorited--active"
@@ -90,7 +100,7 @@ const ImageDetails: FC<ImageDetailsProps> = ({ selectedPhoto }) => {
             />
           )}
         </div>
-        <p className="image-details__filesize">{fileSizeMB}</p>
+        <p className="image-details__filesize text-secondary">{fileSizeMB}</p>
       </div>
       <div className="image-details__information">
         <div className="flex-row bb--gray">
@@ -128,8 +138,9 @@ const ImageDetails: FC<ImageDetailsProps> = ({ selectedPhoto }) => {
           </div>
           <div className="flex-col-half">
             <p className=" text-right">
-              {selectedPhoto.dimensions.width} x{" "}
-              {selectedPhoto.dimensions.height}
+              {selectedPhoto.dimensions.width +
+                " x " +
+                selectedPhoto.dimensions.height}
             </p>
           </div>
         </div>
@@ -139,8 +150,9 @@ const ImageDetails: FC<ImageDetailsProps> = ({ selectedPhoto }) => {
           </div>
           <div className="flex-col-half">
             <p className=" text-right">
-              {selectedPhoto.resolution.width} x{" "}
-              {selectedPhoto.resolution.height}
+              {selectedPhoto.resolution.width +
+                " x " +
+                selectedPhoto.resolution.height}
             </p>
           </div>
         </div>

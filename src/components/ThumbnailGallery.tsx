@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useMemo } from "react";
 
 type Photo = {
   id: string;
@@ -33,27 +33,53 @@ const ThumbnailGallery: FC<ThumbnailGalleryProps> = ({
   selectedPhoto,
 }) => {
   const [currentTabItem, setCurrentTabItem] = useState("Recently Added");
-  const [sortedFilteredPhotos, setSortedFilteredPhotos] =
-    useState<Photo[]>(photos);
+  // const [sortedFilteredPhotos, setSortedFilteredPhotos] =
+  useState<Photo[]>(photos);
 
   //Sort the list of photos on mount and when tab item changes
-  useEffect(() => {
+  // useEffect(() => {
+  //   console.log("useEffect recalculating sorted/filtered photos");
+  //   if (currentTabItem === "Recently Added") {
+  //     setSortedFilteredPhotos(
+  //       photos.sort(function (a, b) {
+  //         const timeStampA = new Date(a.createdAt).getTime();
+  //         const timeStampB = new Date(b.createdAt).getTime();
+  //         return timeStampB - timeStampA;
+  //       })
+  //     );
+  //   } else if (currentTabItem === "Favorited") {
+  //     const favoritedPhotos = photos.filter((val) => val.favorited);
+  //     console.log("favorited photo array: ", favoritedPhotos);
+  //     setSortedFilteredPhotos(favoritedPhotos);
+  //   }
+  // }, [currentTabItem, photos]);
+
+  const sortedFilteredPhotos = useMemo(() => {
+    console.log("sortedFilterPhotos");
+
     if (currentTabItem === "Recently Added") {
-      setSortedFilteredPhotos(
-        photos.sort(function (a, b) {
-          const timeStampA = new Date(a.createdAt).getTime();
-          const timeStampB = new Date(b.createdAt).getTime();
-          return timeStampB - timeStampA;
-        })
-      );
+      return photos.sort(function (a, b) {
+        const timeStampA = new Date(a.createdAt).getTime();
+        const timeStampB = new Date(b.createdAt).getTime();
+        return timeStampB - timeStampA;
+      });
     } else if (currentTabItem === "Favorited") {
       const favoritedPhotos = photos.filter((val) => val.favorited);
       console.log("favorited photo array: ", favoritedPhotos);
-      setSortedFilteredPhotos(favoritedPhotos);
+      return favoritedPhotos;
     }
+    return photos;
   }, [currentTabItem, photos]);
 
-  function handlePhotoSelection(photo: object) {
+  // Select first item by default on mount
+  useEffect(() => {
+    if (sortedFilteredPhotos.length > 0) {
+      console.log("Setting selected image to first in list on mount");
+      handlePhotoSelection(photos[0]);
+    }
+  }, []);
+
+  function handlePhotoSelection(photo: Photo) {
     console.log("Selecting photo: ", photo);
     setSelectedPhoto(photo);
   }
@@ -85,20 +111,20 @@ const ThumbnailGallery: FC<ThumbnailGalleryProps> = ({
           Favourited
         </div>
       </div>
-      <div className="photo-list">
-        {sortedFilteredPhotos.map((photo) => (
+      <div className="photo-list fade-in">
+        {sortedFilteredPhotos.map((photo, index) => (
           <div className="photo-list__item" key={photo.id}>
             <div
               className={`
               photo-list__img-wrapper ${
                 selectedPhoto.id === photo.id
-                  ? "photo-list__img-wrapper--selected"
-                  : ""
+                  ? "photo-list__img-wrapper photo-list__img-wrapper--selected"
+                  : "photo-list__img-wrapper"
               }
               `}
             >
               <img
-                className={"photo-list__img"}
+                className="photo-list__img"
                 src={photo.url}
                 alt={photo.description}
                 onClick={() => handlePhotoSelection(photo)}
