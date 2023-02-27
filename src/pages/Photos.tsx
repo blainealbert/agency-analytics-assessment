@@ -4,7 +4,7 @@ import ImageDetails from "../components/ImageDetails";
 import ThumbnailGallery from "../components/ThumbnailGallery";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import { Photo } from "../Models/Photo";
+import { Photo } from "../models/Photo";
 
 const Photos: FC = () => {
   const [photos, setPhotos] = useState<Photo[]>([]);
