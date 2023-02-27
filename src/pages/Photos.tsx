@@ -4,26 +4,7 @@ import ImageDetails from "../components/ImageDetails";
 import ThumbnailGallery from "../components/ThumbnailGallery";
 import CircularProgress from "@mui/material/CircularProgress";
 
-type Photo = {
-  id: string;
-  url: string;
-  filename: string;
-  description: string;
-  uploadedBy: string;
-  createdAt: string;
-  updatedAt: string;
-  dimensions: {
-    width: number;
-    height: number;
-  };
-  resolution: {
-    width: number;
-    height: number;
-  };
-  sizeInBytes: number;
-  // sharedWith:
-  favorited: boolean;
-};
+import { Photo } from "../Models/Photo";
 
 const Photos: FC = () => {
   const [photos, setPhotos] = useState<Photo[]>([]);

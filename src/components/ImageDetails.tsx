@@ -2,25 +2,7 @@ import React, { FC, useMemo } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
-type Photo = {
-  id: string;
-  url: string;
-  filename: string;
-  description: string;
-  uploadedBy: string;
-  createdAt: string;
-  updatedAt: string;
-  dimensions: {
-    width: number;
-    height: number;
-  };
-  resolution: {
-    width: number;
-    height: number;
-  };
-  sizeInBytes: number;
-  favorited: boolean;
-};
+import { Photo } from "../Models/Photo";
 interface ImageDetailsProps {
   selectedPhoto: Photo;
   favoriteToggleSelectedPhoto: Function;
