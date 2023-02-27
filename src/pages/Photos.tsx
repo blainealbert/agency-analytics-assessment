@@ -46,17 +46,18 @@ const Photos: FC = () => {
   function favoriteToggleSelectedPhoto() {
     // console.log("favoriteToggleSelectedPhoto for: ", selectedPhoto.filename);
     // update favorited state to a temp array and save
-    const tempPhotos = [...photos];
-    tempPhotos[getIndexFromSelectedPhoto(selectedPhoto)].favorited =
-      !tempPhotos[getIndexFromSelectedPhoto(selectedPhoto)].favorited;
-    setSelectedPhoto(tempPhotos[getIndexFromSelectedPhoto(selectedPhoto)]);
+    const tempPhotos: Photo[] = [...photos];
+    const selectedPhotoIndex: number = getIndexFromSelectedPhoto(selectedPhoto);
+    tempPhotos[selectedPhotoIndex].favorited =
+      !tempPhotos[selectedPhotoIndex].favorited;
     setPhotos(tempPhotos);
   }
 
   function deleteSelectedPhoto() {
     // console.log("deleteSelectedPhoto", selectedPhoto);
-    const tempPhotos = [...photos];
-    tempPhotos.splice(getIndexFromSelectedPhoto(selectedPhoto), 1);
+    const tempPhotos: Photo[] = [...photos];
+    const selectedPhotoIndex: number = getIndexFromSelectedPhoto(selectedPhoto);
+    tempPhotos.splice(selectedPhotoIndex, 1);
     setPhotos(tempPhotos);
     // set selected photo back to first choice
     if (photos.length > 0) {

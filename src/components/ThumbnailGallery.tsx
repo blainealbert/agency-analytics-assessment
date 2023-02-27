@@ -18,14 +18,14 @@ const ThumbnailGallery: FC<ThumbnailGalleryProps> = ({
   const sortedFilteredPhotos = useMemo(() => {
     // console.log("sorting and filtering photos");
     if (currentTabItem === "Recently Added") {
-      const tempPhotos = photos.sort(function (a, b) {
+      const tempPhotos: Photo[] = photos.sort(function (a, b) {
         const timeStampA = new Date(a.createdAt).getTime();
         const timeStampB = new Date(b.createdAt).getTime();
         return timeStampB - timeStampA;
       });
       return tempPhotos;
     } else if (currentTabItem === "Favorited") {
-      const favoritedPhotos = photos.filter((val) => val.favorited);
+      const favoritedPhotos: Photo[] = photos.filter((val) => val.favorited);
       // console.log("favorited photo array: ", favoritedPhotos);
       return favoritedPhotos;
     }
