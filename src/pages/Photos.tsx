@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useReducer, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 import ImageDetails from "../components/ImageDetails";
 import ThumbnailGallery from "../components/ThumbnailGallery";
@@ -26,7 +26,6 @@ type Photo = {
 };
 
 const Photos: FC = () => {
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [selectedPhoto, setSelectedPhoto] = useState<Photo>({
     id: "",
@@ -50,17 +49,14 @@ const Photos: FC = () => {
 
   // Load Photo JSON from API
   useEffect(() => {
-    console.log("selectedPhoto is: ", selectedPhoto);
     fetch("https://agencyanalytics-api.vercel.app/images.json")
       .then((response) => response.json())
       .then((data) => {
         setPhotos(data);
-        // props.setNotification("");
         console.log("Photo JSON loaded:", data);
       })
       .catch((error) => {
         console.error(error);
-        // props.setNotification(error.message);
       });
   }, []);
 
@@ -68,26 +64,22 @@ const Photos: FC = () => {
   function favoriteToggleSelectedPhoto() {
     console.log("favoriteToggleSelectedPhoto for: ", selectedPhoto.filename);
     // update favorited state to a temp array and save
-    const tempPhotos = photos;
+    const tempPhotos = [...photos];
     tempPhotos[getIndexFromSelectedPhoto(selectedPhoto)].favorited =
       !tempPhotos[getIndexFromSelectedPhoto(selectedPhoto)].favorited;
     setSelectedPhoto(tempPhotos[getIndexFromSelectedPhoto(selectedPhoto)]);
     setPhotos(tempPhotos);
-    // remove this
-    forceUpdate();
   }
 
   function deleteSelectedPhoto() {
     console.log("deleteSelectedPhoto", selectedPhoto);
-    const tempPhotos = photos;
+    const tempPhotos = [...photos];
     tempPhotos.splice(getIndexFromSelectedPhoto(selectedPhoto), 1);
     setPhotos(tempPhotos);
     // set selected photo back to first choice
     if (photos.length > 0) {
       setSelectedPhoto(photos[0]);
     }
-    // remove this
-    forceUpdate();
   }
 
   function getIndexFromSelectedPhoto(photo: Photo): number {

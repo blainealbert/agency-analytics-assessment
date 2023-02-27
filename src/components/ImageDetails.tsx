@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, useMemo } from "react";
+import React, { FC, useMemo } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
@@ -19,7 +19,6 @@ type Photo = {
     height: number;
   };
   sizeInBytes: number;
-  // sharedWith:
   favorited: boolean;
 };
 interface ImageDetailsProps {

@@ -17,7 +17,6 @@ type Photo = {
     height: number;
   };
   sizeInBytes: number;
-  // sharedWith:
   favorited: boolean;
 };
 
@@ -33,25 +32,25 @@ const ThumbnailGallery: FC<ThumbnailGalleryProps> = ({
   selectedPhoto,
 }) => {
   const [currentTabItem, setCurrentTabItem] = useState("Recently Added");
-  // const [sortedFilteredPhotos, setSortedFilteredPhotos] =
-  useState<Photo[]>(photos);
+  const [sortedFilteredPhotos, setSortedFilteredPhotos] =
+    useState<Photo[]>(photos);
 
-  const sortedFilteredPhotos = useMemo(() => {
+  useEffect(() => {
     console.log("sortedFilterPhotos");
 
     if (currentTabItem === "Recently Added") {
-      return photos.sort(function (a, b) {
+      const tempPhotos = photos.sort(function (a, b) {
         const timeStampA = new Date(a.createdAt).getTime();
         const timeStampB = new Date(b.createdAt).getTime();
         return timeStampB - timeStampA;
       });
+      setSortedFilteredPhotos(tempPhotos);
     } else if (currentTabItem === "Favorited") {
       const favoritedPhotos = photos.filter((val) => val.favorited);
       console.log("favorited photo array: ", favoritedPhotos);
-      return favoritedPhotos;
+      setSortedFilteredPhotos(favoritedPhotos);
     }
-    return photos;
-  }, [currentTabItem, photos]);
+  }, [photos, currentTabItem]);
 
   // Select first item by default on mount
   useEffect(() => {
