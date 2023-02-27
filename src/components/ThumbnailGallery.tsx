@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useMemo } from "react";
+import React, { FC, useState, useEffect, useMemo, useCallback } from "react";
 
 type Photo = {
   id: string;
@@ -32,41 +32,47 @@ const ThumbnailGallery: FC<ThumbnailGalleryProps> = ({
   selectedPhoto,
 }) => {
   const [currentTabItem, setCurrentTabItem] = useState("Recently Added");
-  const [sortedFilteredPhotos, setSortedFilteredPhotos] =
-    useState<Photo[]>(photos);
 
-  useEffect(() => {
-    console.log("sortedFilterPhotos");
-
+  const sortedFilteredPhotos = useMemo(() => {
+    // console.log("sorting and filtering photos");
     if (currentTabItem === "Recently Added") {
       const tempPhotos = photos.sort(function (a, b) {
         const timeStampA = new Date(a.createdAt).getTime();
         const timeStampB = new Date(b.createdAt).getTime();
         return timeStampB - timeStampA;
       });
-      setSortedFilteredPhotos(tempPhotos);
+      return tempPhotos;
     } else if (currentTabItem === "Favorited") {
       const favoritedPhotos = photos.filter((val) => val.favorited);
-      console.log("favorited photo array: ", favoritedPhotos);
-      setSortedFilteredPhotos(favoritedPhotos);
+      // console.log("favorited photo array: ", favoritedPhotos);
+      return favoritedPhotos;
     }
+    return photos;
   }, [photos, currentTabItem]);
+
+  // recalculate sizeInMB value when photos update
+  const sizeInMB = useCallback(
+    (sizeInBytes: number) => {
+      return (sizeInBytes / 1048576).toFixed(2) + " MB";
+    },
+    [photos]
+  );
 
   // Select first item by default on mount
   useEffect(() => {
     if (sortedFilteredPhotos.length > 0) {
-      console.log("Setting selected image to first in list on mount");
+      // console.log("Setting selected image to first in list on mount");
       handlePhotoSelection(photos[0]);
     }
   }, []);
 
   function handlePhotoSelection(photo: Photo) {
-    console.log("Selecting photo: ", photo);
+    // console.log("Selecting photo: ", photo);
     setSelectedPhoto(photo);
   }
 
   function handleTabClick(tabValue: string) {
-    console.log("Selecting tab item: ", tabValue);
+    // console.log("Selecting tab item: ", tabValue);
     if (tabValue !== currentTabItem) {
       setCurrentTabItem(tabValue);
     }
@@ -113,7 +119,7 @@ const ThumbnailGallery: FC<ThumbnailGalleryProps> = ({
             </div>
             <span className="photo-list__file-name">{photo.filename}</span>
             <span className="photo-list__file-size text-gray">
-              {(photo.sizeInBytes / 1048576).toFixed(2) + " MB"}
+              {sizeInMB(photo.sizeInBytes)}
             </span>
           </div>
         ))}

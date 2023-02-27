@@ -61,19 +61,12 @@ const ImageDetails: FC<ImageDetailsProps> = ({
   }, [selectedPhoto]);
 
   function handleFavoriteToggle(photo: Photo) {
-    console.log(
-      "Toggling favorite status of " +
-        photo.filename +
-        " from " +
-        photo.favorited +
-        " to " +
-        !photo.favorited
-    );
+    // console.log(`Toggling favorite status of ${photo.filename}`);
     favoriteToggleSelectedPhoto();
   }
 
   function handleDelete(photo: Photo) {
-    console.log("Deleting photo with filename: ", photo.filename);
+    // console.log(`Deleting photo with filename: ${photo.filename}`);
     deleteSelectedPhoto();
   }
 

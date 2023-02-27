@@ -62,7 +62,7 @@ const Photos: FC = () => {
 
   // Toggle favorited photo state
   function favoriteToggleSelectedPhoto() {
-    console.log("favoriteToggleSelectedPhoto for: ", selectedPhoto.filename);
+    // console.log("favoriteToggleSelectedPhoto for: ", selectedPhoto.filename);
     // update favorited state to a temp array and save
     const tempPhotos = [...photos];
     tempPhotos[getIndexFromSelectedPhoto(selectedPhoto)].favorited =
@@ -72,7 +72,7 @@ const Photos: FC = () => {
   }
 
   function deleteSelectedPhoto() {
-    console.log("deleteSelectedPhoto", selectedPhoto);
+    // console.log("deleteSelectedPhoto", selectedPhoto);
     const tempPhotos = [...photos];
     tempPhotos.splice(getIndexFromSelectedPhoto(selectedPhoto), 1);
     setPhotos(tempPhotos);
