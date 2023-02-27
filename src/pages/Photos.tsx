@@ -8,6 +8,7 @@ import { Photo } from "../Models/Photo";
 
 const Photos: FC = () => {
   const [photos, setPhotos] = useState<Photo[]>([]);
+  // setting an empty photo in case there are no images to render
   const [selectedPhoto, setSelectedPhoto] = useState<Photo>({
     id: "",
     url: "",
@@ -73,7 +74,8 @@ const Photos: FC = () => {
     return matchingIndex;
   }
 
-  if (photos.length < 1) {
+  // Displays loading when array is empty
+  if (photos.length === 0) {
     return (
       <div className="loading-wrapper">
         <CircularProgress className="loading-icon" />
