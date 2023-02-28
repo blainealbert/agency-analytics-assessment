@@ -101,7 +101,7 @@ const ThumbnailGallery: FC<ThumbnailGalleryProps> = ({
               />
             </div>
             <span className="photo-list__file-name">{photo.filename}</span>
-            <span className="photo-list__file-size text-gray">
+            <span className="photo-list__file-size text-secondary">
               {sizeInMB(photo.sizeInBytes)}
             </span>
           </div>
