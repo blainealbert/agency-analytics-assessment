@@ -1,0 +1,45 @@
+/* Thumbnail Gallery */
+.photo-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 30px 20px;
+}
+
+.photo-list__item {
+  width: 200px;
+}
+
+.photo-list__img {
+  width: 200px;
+  height: 150px;
+  cursor: pointer;
+  border-radius: 10px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.photo-list__img-wrapper {
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.photo-list__img-wrapper--selected::before {
+  display: block;
+  content: "";
+  width: calc(100% + 4px);
+  height: 100%;
+  border: 2px solid var(--primary);
+  position: absolute;
+  border-radius: 14px;
+  top: -4px;
+  left: -4px;
+}
+
+.photo-list__file-name {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect, useMemo, useCallback } from "react";
 
 import { Photo } from "../models/Photo";
+import "./styles/ThumbnailGallery.css";
 
 interface ThumbnailGalleryProps {
   photos: Photo[];

@@ -3,6 +3,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 import { Photo } from "../models/Photo";
+import "./styles/ImageDetails.css";
 interface ImageDetailsProps {
   selectedPhoto: Photo;
   favoriteToggleSelectedPhoto: Function;
