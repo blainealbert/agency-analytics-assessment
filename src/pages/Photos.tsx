@@ -86,7 +86,7 @@ const Photos: FC = () => {
 
   return (
     <div className="photos-container flex-row">
-      <div className="flex-col-full p-20 bg--lightgray">
+      <div className="flex-col-full p-25 bg--lightgray">
         <h1>Photos</h1>
         <ThumbnailGallery
           photos={photos}
@@ -94,7 +94,7 @@ const Photos: FC = () => {
           setSelectedPhoto={setSelectedPhoto}
         />
       </div>
-      <div className="flex-col-full mw-400px p-20 bl--gray">
+      <div className="flex-col-full mw-400px p-25 bl--gray">
         <ImageDetails
           selectedPhoto={selectedPhoto}
           favoriteToggleSelectedPhoto={favoriteToggleSelectedPhoto}
